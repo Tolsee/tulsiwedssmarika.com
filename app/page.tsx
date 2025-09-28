@@ -151,7 +151,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
-              <div className="card">
+              <div className="glass-card">
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0 w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
                     <span className="text-emerald-600 font-semibold">💕</span>
@@ -163,7 +163,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="card">
+              <div className="glass-card">
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0 w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
                     <span className="text-pink-600 font-semibold">🌟</span>
@@ -175,7 +175,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="card">
+              <div className="glass-card">
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0 w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
                     <span className="text-emerald-600 font-semibold">💍</span>
@@ -189,10 +189,13 @@ export default function Home() {
             </div>
 
             <div className="relative">
-              <div className="aspect-square bg-gradient-to-br from-emerald-200 to-pink-200 rounded-2xl flex items-center justify-center">
-                <div className="text-6xl">📸</div>
+              <div className="aspect-square bg-gradient-to-br from-emerald-200 to-pink-200 rounded-2xl flex items-center justify-center relative overflow-hidden">
+                <div className="glass-overlay absolute inset-0"></div>
+                <div className="text-6xl relative z-10">📸</div>
+                {/* Small liquid blob for this section */}
+                <div className="liquid-blob w-32 h-32 absolute -top-10 -right-10 opacity-60"></div>
               </div>
-              <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-stone-200 rounded-full flex items-center justify-center">
+              <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-stone-200 rounded-full flex items-center justify-center glass-overlay">
                 <div className="text-2xl">💖</div>
               </div>
             </div>
@@ -212,7 +215,7 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="card text-center">
+            <div className="glass-card text-center">
               <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-2xl">🗓️</span>
               </div>
@@ -221,7 +224,7 @@ export default function Home() {
               <p className="text-gray-600">4:00 PM onwards</p>
             </div>
 
-            <div className="card text-center">
+            <div className="glass-card text-center">
               <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-2xl">📍</span>
               </div>
@@ -230,7 +233,7 @@ export default function Home() {
               <p className="text-gray-600">Kathmandu, Nepal</p>
             </div>
 
-            <div className="card text-center md:col-span-2 lg:col-span-1">
+            <div className="glass-card text-center md:col-span-2 lg:col-span-1">
               <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-2xl">👗</span>
               </div>
@@ -241,7 +244,7 @@ export default function Home() {
           </div>
 
           <div className="mt-12 text-center">
-            <div className="card max-w-2xl mx-auto">
+            <div className="glass-card max-w-2xl mx-auto">
               <h3 className="text-xl font-serif font-semibold text-emerald-700 mb-4">Schedule</h3>
               <div className="space-y-3 text-left">
                 <div className="flex justify-between items-center">
@@ -271,8 +274,14 @@ export default function Home() {
       </section>
 
       {/* Gallery Section */}
-      <section id="gallery" className="section-padding bg-white">
-        <div className="container-custom">
+      <section id="gallery" className="section-padding bg-white relative overflow-hidden">
+        {/* Background liquid blobs for gallery */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="liquid-blob w-48 h-48 top-20 right-10 opacity-30"></div>
+          <div className="liquid-blob w-40 h-40 bottom-32 left-8 opacity-40"></div>
+        </div>
+
+        <div className="container-custom relative z-10">
           <div className="text-center mb-16">
             <h2 className="heading-secondary mb-4">Our Memories</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-emerald-400 to-pink-400 mx-auto mb-6"></div>
@@ -288,12 +297,15 @@ export default function Home() {
               { src: "/images/5.jpeg", alt: "Tulsi & Smarika - Photo 3" },
               { src: "/images/6.jpeg", alt: "Tulsi & Smarika - Photo 4" }
             ].map((photo, index) => (
-              <div key={index} className="aspect-square rounded-xl overflow-hidden hover:scale-105 transition-transform duration-300 cursor-pointer shadow-lg">
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  className="w-full h-full object-cover"
-                />
+              <div key={index} className="glass-card !p-2 aspect-square rounded-xl overflow-hidden hover:scale-105 transition-all duration-500 cursor-pointer group">
+                <div className="relative h-full rounded-lg overflow-hidden">
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="glass-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
               </div>
             ))}
           </div>
