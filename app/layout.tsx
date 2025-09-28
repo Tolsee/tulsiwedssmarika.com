@@ -1,3 +1,10 @@
+import './globals.css';
+
+export const metadata = {
+  title: 'Tulsi & Smarika - Wedding Website',
+  description: 'Join us in celebrating our special day',
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -5,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="font-sans antialiased">{children}</body>
     </html>
   );
 }

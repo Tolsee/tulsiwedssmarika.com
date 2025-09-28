@@ -7,12 +7,19 @@
   },
   "dependencies": {
     "@types/node": "^18.11.5",
-    "@types/react-dom": "^18.0.7",
     "@types/react": "^18.0.23",
+    "@types/react-dom": "^18.0.7",
     "next": "latest",
-    "react-dom": "^18.2.0",
     "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "serve": "^14.2.0",
     "typescript": "^4.8.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.13",
+    "@tailwindcss/typography": "^0.5.19",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.13"
   }
 }
