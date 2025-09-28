@@ -112,6 +112,28 @@
       rgba(236, 72, 153, 0.1) 100%);
     border-radius: 16px;
   }
+
+  /* Timeline specific styles */
+  .timeline-item {
+    transition: all 0.6s ease-out;
+  }
+
+  .timeline-item.animate-fade-in {
+    animation: timelineFadeIn 0.8s ease-out forwards;
+  }
+
+  /* Timeline responsive adjustments */
+  @media (max-width: 768px) {
+    .timeline-item {
+      flex-direction: column !important;
+    }
+
+    .timeline-item .glass-card {
+      width: 100% !important;
+      margin: 0 !important;
+      margin-top: 2rem !important;
+    }
+  }
 }
 
 /* Liquid Glass Animations */
@@ -167,6 +189,17 @@
   }
   100% {
     transform: translate(0, 0) rotate(360deg);
+  }
+}
+
+@keyframes timelineFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

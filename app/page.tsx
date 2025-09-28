@@ -3,6 +3,141 @@
 import { useState, useEffect } from 'react';
 import RSVPForm from '../components/RSVPForm';
 
+// Relationship Timeline Component
+function RelationshipTimeline() {
+  const [visibleItems, setVisibleItems] = useState<Set<number>>(new Set());
+
+  const timelineEvents = [
+    {
+      date: "May 21, 2023",
+      title: "First Conversation",
+      description: "We matched online and chatted for hours about our favorite books... who knew that chat would change our lives!",
+      image: null,
+      side: "left"
+    },
+    {
+      date: "July 1, 2023",
+      title: "Our First Meet",
+      description: "Finally meeting in person at Lavie Garden - butterflies, nervous laughter, and the beginning of something beautiful.",
+      image: "/images/first-date.jpeg",
+      side: "right"
+    },
+    {
+      date: "November 16, 2023",
+      title: "Long Distance Begins",
+      description: "Tulsi moves to Australia - kicking off 9 months apart that only made our hearts grow fonder.",
+      image: "/images/5.jpeg",
+      side: "left"
+    },
+    {
+      date: "January 1, 2024",
+      title: "The Proposal",
+      description: "A New Year, a new chapter - the moment we decided to spend forever together.",
+      image: "/images/6.jpeg",
+      side: "right"
+    },
+    {
+      date: "August 26, 2024",
+      title: "Reunion in Nepal",
+      description: "After months apart, we finally reunited in Nepal - the beginning of our new chapter together.",
+      image: "/images/13.jpeg",
+      side: "left"
+    },
+    {
+      date: "December 12, 2025",
+      title: "Together Forever",
+      description: "Our wedding day - the moment we officially become one and promise to love each other for all eternity.",
+      image: null,
+      side: "right"
+    }
+  ];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.getAttribute('data-index') || '0');
+            setVisibleItems(prev => new Set([...prev, index]));
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    const elements = document.querySelectorAll('.timeline-item');
+    elements.forEach(el => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className="relative max-w-4xl mx-auto px-4">
+      {/* Timeline Line */}
+      <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-emerald-400 via-pink-400 to-emerald-400 opacity-30"></div>
+
+      {timelineEvents.map((event, index) => (
+        <div
+          key={index}
+          data-index={index}
+          className={`timeline-item relative flex items-center mb-16 ${
+            event.side === 'left' ? 'md:flex-row-reverse' : ''
+          } ${visibleItems.has(index) ? 'animate-fade-in' : 'opacity-0'}`}
+        >
+          {/* Timeline Marker */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-r from-emerald-400 to-pink-400 rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center">
+            <div className="w-2 h-2 bg-white rounded-full"></div>
+          </div>
+
+          {/* Event Card */}
+          <div className={`glass-card w-full md:w-[45%] ${
+            event.side === 'left' ? 'md:mr-auto md:ml-[55%]' : 'md:ml-auto md:mr-[55%]'
+          } group hover:scale-105 transition-all duration-500`}>
+            <div className="flex flex-col space-y-4">
+              {/* Date */}
+              <div className="text-emerald-700 font-semibold text-lg">{event.date}</div>
+
+              {/* Image or Placeholder */}
+              <div className="aspect-video rounded-lg overflow-hidden">
+                {event.image ? (
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-emerald-100 to-pink-100 flex items-center justify-center">
+                    <div className="text-center">
+                      {event.title === "First Conversation" ? (
+                        <>
+                          <div className="text-4xl mb-2">💬</div>
+                          <div className="text-emerald-700 font-medium text-sm">First Chat</div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="text-4xl mb-2">💍</div>
+                          <div className="text-emerald-700 font-medium text-sm">Wedding Day</div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Content */}
+              <div>
+                <h3 className="text-xl font-serif font-semibold text-emerald-800 mb-2">{event.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{event.description}</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // Auto-scrolling carousel component for love story
 function LoveStoryCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -98,6 +233,12 @@ export default function Home() {
                 Home
               </button>
               <button
+                onClick={() => scrollToSection('timeline')}
+                className="text-emerald-700 hover:text-pink-500 transition-colors font-medium"
+              >
+                Our Timeline
+              </button>
+              <button
                 onClick={() => scrollToSection('story')}
                 className="text-emerald-700 hover:text-pink-500 transition-colors font-medium"
               >
@@ -191,6 +332,27 @@ export default function Home() {
           <div className="w-6 h-10 border-2 border-emerald-400 rounded-full flex justify-center">
             <div className="w-1 h-3 bg-emerald-400 rounded-full mt-2 animate-pulse"></div>
           </div>
+        </div>
+      </section>
+
+      {/* Relationship Timeline Section */}
+      <section id="timeline" className="section-padding gradient-bg relative overflow-hidden">
+        {/* Background liquid blobs */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="liquid-blob w-64 h-64 top-32 right-16 opacity-20"></div>
+          <div className="liquid-blob w-48 h-48 bottom-32 left-12 opacity-25"></div>
+        </div>
+
+        <div className="container-custom relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="heading-secondary mb-4">Our Love Journey</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-emerald-400 to-pink-400 mx-auto mb-6"></div>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              From first messages to forever together - here's how our love story unfolded
+            </p>
+          </div>
+
+          <RelationshipTimeline />
         </div>
       </section>
 
