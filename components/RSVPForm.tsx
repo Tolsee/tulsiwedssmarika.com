@@ -130,7 +130,7 @@ export default function RSVPForm() {
   };
 
   return (
-    <div className="card">
+    <div className="glass-card">
       {submitStatus.type && (
         <div
           className={`mb-6 p-4 rounded-lg ${
