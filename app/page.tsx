@@ -58,7 +58,7 @@ function RelationshipTimeline() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const index = parseInt(entry.target.getAttribute('data-index') || '0');
-            setVisibleItems(prev => new Set([...prev, index]));
+            setVisibleItems(prev => new Set(Array.from(prev).concat(index)));
           }
         });
       },
