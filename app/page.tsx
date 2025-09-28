@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import RSVPForm from '../components/RSVPForm';
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -315,89 +316,7 @@ export default function Home() {
           </div>
 
           <div className="max-w-2xl mx-auto">
-            <div className="card">
-              <form className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-emerald-700 mb-2">
-                      First Name
-                    </label>
-                    <input
-                      type="text"
-                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-colors"
-                      placeholder="Your first name"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-emerald-700 mb-2">
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-colors"
-                      placeholder="Your last name"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-emerald-700 mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-colors"
-                    placeholder="your@email.com"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-emerald-700 mb-2">
-                    Will you be attending?
-                  </label>
-                  <div className="flex gap-4">
-                    <label className="flex items-center">
-                      <input type="radio" name="attending" value="yes" className="text-emerald-500 focus:ring-emerald-400" />
-                      <span className="ml-2 text-gray-700">Yes, I'll be there!</span>
-                    </label>
-                    <label className="flex items-center">
-                      <input type="radio" name="attending" value="no" className="text-emerald-500 focus:ring-emerald-400" />
-                      <span className="ml-2 text-gray-700">Sorry, can't make it</span>
-                    </label>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-emerald-700 mb-2">
-                    Number of Guests
-                  </label>
-                  <select className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-colors">
-                    <option>Just me</option>
-                    <option>2 people</option>
-                    <option>3 people</option>
-                    <option>4 people</option>
-                    <option>5+ people</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-emerald-700 mb-2">
-                    Special Message (Optional)
-                  </label>
-                  <textarea
-                    rows={4}
-                    className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-colors"
-                    placeholder="Leave us a sweet message..."
-                  ></textarea>
-                </div>
-
-                <div className="text-center">
-                  <button type="submit" className="btn-primary w-full md:w-auto">
-                    Send RSVP
-                  </button>
-                </div>
-              </form>
-            </div>
+            <RSVPForm />
           </div>
         </div>
       </section>
