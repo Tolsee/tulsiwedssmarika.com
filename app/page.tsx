@@ -3,6 +3,62 @@
 import { useState, useEffect } from 'react';
 import RSVPForm from '../components/RSVPForm';
 
+// Auto-scrolling carousel component for love story
+function LoveStoryCarousel() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const images = [
+    { src: "/images/15.jpeg", alt: "Our First Meeting - Tulsi & Smarika", name: "When eyes meet" },
+    { src: "/images/17.jpeg", alt: "Date Night - Tulsi & Smarika", name: "Date Night" },
+    { src: "/images/5.jpeg", alt: "Adventure Together - Tulsi & Smarika", name: "Adventure Together" },
+    { src: "/images/6.jpeg", alt: "Romantic Moment - Tulsi & Smarika", name: "Romantic Moment" },
+    { src: "/images/13.jpeg", alt: "Celebration - Tulsi & Smarika", name: "Continuing the Celebration" }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 4000); // Change image every 4 seconds
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  return (
+    <div className="aspect-square rounded-2xl overflow-hidden relative glass-card !p-2">
+      {images.map((image, index) => (
+        <div
+          key={index}
+          className={`absolute inset-0 transition-opacity duration-1000 ${
+            index === currentIndex ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <img
+            src={image.src}
+            alt={image.alt}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      ))}
+
+      {/* Dots indicator */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+              index === currentIndex ? 'bg-white' : 'bg-white/50'
+            }`}
+          />
+        ))}
+      </div>
+
+      {/* Small liquid blob for this section */}
+      <div className="liquid-blob w-32 h-32 absolute -top-10 -right-10 opacity-60"></div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -189,12 +245,7 @@ export default function Home() {
             </div>
 
             <div className="relative">
-              <div className="aspect-square bg-gradient-to-br from-emerald-200 to-pink-200 rounded-2xl flex items-center justify-center relative overflow-hidden">
-                <div className="glass-overlay absolute inset-0"></div>
-                <div className="text-6xl relative z-10">📸</div>
-                {/* Small liquid blob for this section */}
-                <div className="liquid-blob w-32 h-32 absolute -top-10 -right-10 opacity-60"></div>
-              </div>
+              <LoveStoryCarousel />
               <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-stone-200 rounded-full flex items-center justify-center glass-overlay">
                 <div className="text-2xl">💖</div>
               </div>
@@ -229,7 +280,7 @@ export default function Home() {
                 <span className="text-2xl">📍</span>
               </div>
               <h3 className="text-xl font-serif font-semibold text-emerald-700 mb-4">Venue</h3>
-              <p className="text-gray-600 mb-2">Garden of Dreams</p>
+              <p className="text-gray-600 mb-2">Grand Norling Hotel's Resort</p>
               <p className="text-gray-600">Kathmandu, Nepal</p>
             </div>
 
@@ -292,10 +343,10 @@ export default function Home() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {[
-              { src: "/images/15.jpeg", alt: "Tulsi & Smarika - Photo 1" },
-              { src: "/images/17.jpeg", alt: "Tulsi & Smarika - Photo 2" },
-              { src: "/images/5.jpeg", alt: "Tulsi & Smarika - Photo 3" },
-              { src: "/images/6.jpeg", alt: "Tulsi & Smarika - Photo 4" }
+              { src: "/images/13.jpeg", alt: "Beautiful Memories - Tulsi & Smarika", name: "Beautiful Memories" },
+              { src: "/images/6.jpeg", alt: "Happy Moments - Tulsi & Smarika", name: "Happy Moments" },
+              { src: "/images/17.jpeg", alt: "Sweet Times - Tulsi & Smarika", name: "Sweet Times" },
+              { src: "/images/5.jpeg", alt: "Joyful Celebration - Tulsi & Smarika", name: "Joyful Celebration" }
             ].map((photo, index) => (
               <div key={index} className="glass-card !p-2 aspect-square rounded-xl overflow-hidden hover:scale-105 transition-all duration-500 cursor-pointer group">
                 <div className="relative h-full rounded-lg overflow-hidden">
@@ -304,14 +355,9 @@ export default function Home() {
                     alt={photo.alt}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="glass-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               </div>
             ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <button className="btn-primary">View More Photos</button>
           </div>
         </div>
       </section>
@@ -359,7 +405,7 @@ export default function Home() {
                 <span className="text-xl">📍</span>
               </div>
               <h3 className="font-serif text-lg font-semibold mb-2 text-white">Location</h3>
-              <p className="text-gray-200">Garden of Dreams</p>
+              <p className="text-gray-200">Grand Norling Hotel's Resort</p>
               <p className="text-gray-200 text-sm">Kathmandu, Nepal</p>
             </div>
 
